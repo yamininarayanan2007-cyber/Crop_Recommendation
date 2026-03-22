@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Crop Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<div class="container">
+
+    <h1>🌾 Smart Crop Recommendation 🌱</h1>
+    <p>Helping Farmers Choose the Right Crop 💚</p>
+
+    {% if prediction %}
+
+    <div class="result-card">
+        <h2>📊 Entered Details</h2>
+        <p><strong>Soil:</strong> {{ soil }}</p>
+        <p><strong>N:</strong> {{ N }} | <strong>P:</strong> {{ P }} | <strong>K:</strong> {{ K }} | <strong>pH:</strong> {{ ph }}</p>
+        <p><strong>Temperature:</strong> {{ temperature }}°C</p>
+        <p><strong>Humidity:</strong> {{ humidity }}%</p>
+        <p><strong>Rainfall:</strong> {{ rainfall }} mm</p>
+
+        <h2>🌾 Recommended Crop</h2>
+        <div class="crop-result">
+            {{ prediction }}
+        </div>
+
+        <br>
+        <a href="/" class="try-again">🔄 Try Again</a>
+    </div>
+
+    {% else %}
+
+    <div class="form-card">
+        <form method="POST">
+
+            <select name="soil" required>
+                <option value="">-- Select Soil Type --</option>
+                <option value="Clayey Alluvial">Clayey Alluvial</option>
+                <option value="Loamy Clayey Loam">Loamy Clayey Loam</option>
+                <option value="Fertile Loam">Fertile Loam</option>
+                <option value="Black Soil">Black Soil</option>
+                <option value="Deep Loam">Deep Loam</option>
+                <option value="Acidic Loam">Acidic Loam</option>
+                <option value="Well Drained Loam">Well Drained Loam</option>
+                <option value="Sandy Loam">Sandy Loam</option>
+                <option value="Red Soil">Red Soil</option>
+                <option value="Rich Loam">Rich Loam</option>
+            </select>
+
+            <input type="number" name="temperature" placeholder="Temperature (°C)" step="0.1" required>
+            <input type="number" name="humidity" placeholder="Humidity (%)" step="0.1" required>
+            <input type="number" name="rainfall" placeholder="Rainfall (mm)" step="0.1" required>
+
+            <button type="submit">🌱 Predict Crop</button>
+        </form>
+    </div>
+
+    {% endif %}
+
+</div>
+</body>
+</html>
